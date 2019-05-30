@@ -49,6 +49,14 @@ namespace Tests
         }
 
         [Test]
+        public void AllBurgersHaveAPrce()
+        {
+            var burgers = BurgerFactory.AllBurgers();
+            var allBurgersArePriced = burgers.All(burger => burger.Price > 0.0);
+            Assert.IsTrue(allBurgersArePriced);
+        }
+
+        [Test]
         public void CountOfIngredients()
         {
             var burger = BurgerFactory.BaconBurger();
@@ -83,6 +91,7 @@ namespace Tests
             var ingredientNames = baconBurger.Ingredients.Except(burger.Ingredients).Select(ingredient => ingredient.Name);
             Assert.AreEqual("Salad, Cheese, Bacon", ingredientNames.ToText());
         }
+
 
         [Test]
         public void IngredientsWithCaloriesOfBurger()
