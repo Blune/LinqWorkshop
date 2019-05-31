@@ -76,18 +76,18 @@ namespace LinqWorkshop
 
     internal static class BurgerIngredientExtensions
     {
-        internal static IEnumerable<Ingredient> GetAllIngredients(this IEnumerable<Burger> i) 
-            => i.SelectMany(x => x.Ingredients);
+        internal static IEnumerable<Ingredient> GetAllIngredients(this IEnumerable<Burger> burgers) 
+            => burgers.SelectMany(burger => burger.Ingredients);
 
-        internal static IEnumerable<Ingredient> WhereIngredientPriceIsGreaterThan(this IEnumerable<Ingredient> i , double price) 
-            => i.Where(x => x.Price > price) ;
+        internal static IEnumerable<Ingredient> WhereIngredientPriceIsGreaterThan(this IEnumerable<Ingredient> ingredients , double price) 
+            => ingredients.Where(ingredient => ingredient.Price > price) ;
 
-        internal static Dictionary<Ingredient, int> CountUsageOfIngredients(this IEnumerable<Ingredient> i)
-            => i.GroupBy(ingredient => ingredient).ToDictionary(group => group.Key, group => group.Count());
+        internal static Dictionary<Ingredient, int> CountUsageOfIngredients(this IEnumerable<Ingredient> ingredients)
+            => ingredients.GroupBy(ingredient => ingredient).ToDictionary(group => group.Key, group => group.Count());
 
-        internal static string ToTextWithIngredientAndUsageCount(this Dictionary<Ingredient, int> i)
-            => i.Select(pair => pair.Key.Name + ": " + pair.Value)
-                .Aggregate((result, s) => result + ", " + s);
+        internal static string ToTextWithIngredientAndUsageCount(this Dictionary<Ingredient, int> ingredientsAndUsageCount)
+            => ingredientsAndUsageCount.Select(pair => pair.Key.Name + ": " + pair.Value)
+                .Aggregate((current, next) => current + ", " + next);
     }
 
     #endregion
